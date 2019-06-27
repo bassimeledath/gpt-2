@@ -16,7 +16,8 @@ def interact_model(
     length=None,
     temperature=1,
     top_k=0,
-    models_dir='models',    
+    models_dir='models',
+    input_str = 'Bassim is awesome'    
 ):
     """
     Interactively run the model
@@ -69,10 +70,7 @@ def interact_model(
         saver.restore(sess, ckpt)
 
         while True:
-            raw_text = input("Model prompt >>> ")
-            while not raw_text:
-                print('Prompt should not be empty!')
-                raw_text = input("Model prompt >>> ")
+            raw_text = input_str
             context_tokens = enc.encode(raw_text)
             generated = 0
             for _ in range(nsamples // batch_size):
@@ -88,4 +86,3 @@ def interact_model(
 
 if __name__ == '__main__':
     fire.Fire(interact_model)
-
